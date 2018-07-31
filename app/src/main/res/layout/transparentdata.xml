@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#10000000">
+    <RelativeLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="62dp"
+        android:layout_marginRight="62dp"
+        android:layout_marginLeft="62dp">
+        <RelativeLayout
+            android:id="@+id/edit_profile"
+            android:layout_width="80dp"
+            android:layout_height="100dp">
+
+        <ImageView
+            android:id="@+id/edit_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/edit_profile"
+            />
+            <TextView
+                android:id="@+id/edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit Profile"
+                android:textColor="#fff"
+                android:layout_marginTop="5dp"
+                android:layout_centerInParent="true"
+                android:layout_below="@+id/edit_image"/>
+
+    </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rel_schedule"
+            android:layout_width="80dp"
+            android:layout_toRightOf="@+id/edit_profile"
+            android:layout_marginLeft="8dp"
+            android:layout_height="100dp">
+
+            <ImageView
+                android:id="@+id/cal"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/schedule"
+                />
+            <TextView
+                android:id="@+id/cal_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Scedule"
+                android:textColor="#fff"
+                android:layout_marginTop="5dp"
+                android:layout_centerInParent="true"
+                android:layout_below="@+id/cal"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rel_about"
+            android:layout_width="80dp"
+            android:layout_toRightOf="@+id/rel_schedule"
+            android:layout_marginLeft="8dp"
+            android:layout_height="100dp">
+
+            <ImageView
+                android:id="@+id/about_img"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/about"
+                />
+            <TextView
+                android:id="@+id/about_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="About"
+                android:textColor="#fff"
+                android:layout_marginTop="5dp"
+                android:layout_centerInParent="true"
+                android:layout_below="@+id/about_img"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rel_contactus"
+            android:layout_width="80dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/rel_schedule"
+            android:layout_marginLeft="40dp">
+
+            <ImageView
+                android:id="@+id/contactus_img"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/contactus"
+                />
+            <TextView
+                android:id="@+id/contactus_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Contact Us"
+                android:textColor="#fff"
+                android:layout_marginTop="5dp"
+                android:layout_centerInParent="true"
+                android:layout_below="@+id/contactus_img"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rel_logout"
+            android:layout_width="80dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/rel_about"
+            android:layout_toRightOf="@+id/rel_contactus"
+            android:layout_marginLeft="8dp">
+
+            <ImageView
+                android:id="@+id/logout_img"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/logout"
+                />
+            <TextView
+                android:id="@+id/logout_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LogOut"
+                android:textColor="#fff"
+                android:layout_marginTop="5dp"
+                android:layout_centerInParent="true"
+                android:layout_below="@+id/logout_img"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</RelativeLayout>
+
+</RelativeLayout>

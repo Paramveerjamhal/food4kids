@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="57dp" />
+
+   <!-- <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />-->
+
+    <sun.bob.mcalendarview.MCalendarView
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        tools:context=".Schedule"
+        android:id="@+id/calendar"
+        />
+    <!-- <com.github.sundeepk.compactcalendarview.CompactCalendarView
+         xmlns:app="http://schemas.android.com/apk/res-auto"
+         android:id="@+id/compactcalendar_view"
+         android:layout_marginTop="10dp"
+         android:padding="10dp"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         app:compactCalendarTextSize="12sp"
+         app:compactCalendarBackgroundColor="#fff"
+         app:compactCalendarTextColor="#000"
+         app:compactCalendarCurrentSelectedDayBackgroundColor="#C9C6E1"
+         app:compactCalendarCurrentDayBackgroundColor="#B71C1C"
+         app:compactCalendarMultiEventIndicatorColor="#fff"
+         />-->
+
+
+
+
+
+</LinearLayout>
