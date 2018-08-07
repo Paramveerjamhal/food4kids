@@ -1,7 +1,6 @@
 package com.example.paramveerjamhal.food4kids.Fragments;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,16 +14,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.paramveerjamhal.food4kids.Advance3DDrawer1Activity;
 import com.example.paramveerjamhal.food4kids.LoginActivity;
 import com.example.paramveerjamhal.food4kids.R;
 import com.example.paramveerjamhal.food4kids.TokenManager;
 import com.example.paramveerjamhal.food4kids.adapter.EventAdapter;
 import com.example.paramveerjamhal.food4kids.entities.Event;
 import com.example.paramveerjamhal.food4kids.entities.EventResponse;
-import com.example.paramveerjamhal.food4kids.entities.PostResponse;
-import com.example.paramveerjamhal.food4kids.entities.WeeklyEvent;
-import com.example.paramveerjamhal.food4kids.entities.Weekly_EventResponse;
 import com.example.paramveerjamhal.food4kids.network.ApiService;
 import com.example.paramveerjamhal.food4kids.network.RetrofitBuilder;
 
@@ -39,21 +34,18 @@ import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class EventsFragment  extends Fragment {
+public class SpecialFragment extends Fragment {
 
     private RecyclerView mMyAnswerRV;
     private static final String TAG = "PostActivity";
     ApiService service;
     TokenManager tokenManager;
     Call<EventResponse> call;
-    Call<Weekly_EventResponse> call1;
     @BindView(R.id.post_title)
     TextView title;
     TextView post_body;
     ArrayList<Event> eventsBeanList;
     EventAdapter mEventAdapter;
-    ArrayList<WeeklyEvent> weekly_eventlist;
-    int event_id;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -70,12 +62,11 @@ public class EventsFragment  extends Fragment {
 
         View rootView = inflater.inflate(R.layout.activity_event_layout, container, false);
         ButterKnife.bind(getActivity());
-        mMyAnswerRV=rootView.findViewById(R.id.rv_my_events);
+        mMyAnswerRV = rootView.findViewById(R.id.rv_my_events);
         tokenManager = TokenManager.getInstance(getActivity().getSharedPreferences("pref", MODE_PRIVATE));
         service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
 
         eventsBeanList = new ArrayList<>();
-        weekly_eventlist=new ArrayList<>();
 
 
         call = service.showevents();
@@ -91,17 +82,22 @@ public class EventsFragment  extends Fragment {
 
                         List<Event> eventBeanListdata = response.body().getData();
 
-                        eventsBeanList.addAll(eventBeanListdata);
-                        callWeeklyEventService();
-                        mEventAdapter = new EventAdapter(getActivity(), eventsBeanList,weekly_eventlist);
-                        mMyAnswerRV.setAdapter(mEventAdapter);
+                        //   Toast.makeText(getActivity(),response.body().getData().get(0).getTitle(),Toast.LENGTH_LONG).show();
+                        for(int i=0;i<response.body().getData().size() ;i++){
+                            if(eventBeanListdata.get(i).getEventType()==1){
+                                eventsBeanList.addAll(eventBeanListdata);
+                            }
+                        }
+
 
                     } else {
                         Toast.makeText(getActivity(), "No data fetched.", Toast.LENGTH_SHORT).show();
 
                     }
 
-
+                    // title.setText(response.body().getData().get(0).getTitle());
+                //    mEventAdapter = new EventAdapter(getActivity(), eventsBeanList);
+                 //   mMyAnswerRV.setAdapter(mEventAdapter);
 
                 } else {
                    /*  if(response.code()==401)
@@ -122,40 +118,11 @@ public class EventsFragment  extends Fragment {
 
         });
 
-
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mMyAnswerRV.setLayoutManager(mLayoutManager);
 
         return rootView;
     }
-
-    private void callWeeklyEventService() {
-
-            call1 = service.showWeeklyevents();
-            call1.enqueue(new Callback<Weekly_EventResponse>() {
-                @Override
-                public void onResponse(Call<Weekly_EventResponse> call, Response<Weekly_EventResponse> response) {
-                    Log.d(TAG, "+++++++++++++++=onResponse from weekly event : " + response);
-                    if (response.isSuccessful()) {
-
-                        Log.w(TAG, "response : " +response.body().getData());
-                        if(response.body().getData().size()!=0) {
-                            List<WeeklyEvent> list = response.body().getData();
-                            weekly_eventlist.addAll(list);
-                        }
-                    } else {
-                               }
-                }
-
-                @Override
-                public void onFailure(Call<Weekly_EventResponse> call, Throwable t) {
-                    Log.w(TAG, "onFailure: " + t+ " personalised message : not working");
-                }
-            });
-        }
-
-
-
 
 
     @Override
@@ -176,5 +143,6 @@ public class EventsFragment  extends Fragment {
     public void onDetach() {
         super.onDetach();
     }
-
 }
+
+

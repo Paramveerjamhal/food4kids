@@ -7,4 +7,13 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="d_civ_profile_height_width">110dp</dimen>
     <dimen name="d_civ_height_width_small">110dp</dimen>
+
+    <dimen name="d_divider_height_width">1dp</dimen>
+    <dimen name="d_tv_alert_dialog_padding">10dp</dimen>
+    <dimen name="d_dialog_padding">10dp</dimen>
+    <dimen name="d_rl_padding_prog_dialog">10dp</dimen>
+    <dimen name="d_pb_left_margin">10dp</dimen>
+    <dimen name="d_et_corner_radius">5dp</dimen>
+    <dimen name="d_dialog_corner_radius">10dp</dimen>
+    <dimen name="d_corner_radius">5dp</dimen>
 </resources>

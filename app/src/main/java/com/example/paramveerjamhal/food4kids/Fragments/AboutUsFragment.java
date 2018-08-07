@@ -3,6 +3,7 @@ package com.example.paramveerjamhal.food4kids.Fragments;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,10 +15,17 @@ import android.widget.TextView;
 
 import com.example.paramveerjamhal.food4kids.R;
 
-public class AboutUsFragment extends Fragment {
+import java.util.Locale;
 
-    TextView contact;
-    Intent callIntent ;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class AboutUsFragment extends Fragment {
+    @BindView(R.id.webView)
+    WebView webView;
+    String htmlText,myData;
+    TextToSpeech textToSpeech;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -29,8 +37,18 @@ public class AboutUsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.about, container, false);
-        String htmlText = "<html><body style=\"text-align:justify\"> %s </body></Html>";
-        String myData = "Food4Kids Waterloo Wellington was conceived in September 2016. \n" +
+        ButterKnife.bind(this,rootView);
+        textToSpeech=new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    textToSpeech.setLanguage(Locale.US);
+                }
+            }
+        });
+
+        htmlText = "<html><body style=\"text-align:justify\"> %s </body></Html>";
+        myData = "Food4Kids Waterloo Wellington was conceived in September 2016. \n" +
                 "\n" +
                 "The Food4Kids Waterloo Wellington Founding Board of Directors was installed, and a pilot project with our partner school boards was successfully completed to meet the needs of children living with severe food insecurity within Waterloo Region. \n" +
                 "\n" +
@@ -46,11 +64,23 @@ public class AboutUsFragment extends Fragment {
                 "We have learned that devoting our few time from busy lives in volunteering, even though we are doing smallest tasks, it gives much more satisfaction to us. \n" +
                 "\n" +
                 "For a while, watching smiling faces of the kids gives a lot more happiness to us, moreover it will counteract all the stress, anxiety we had.";
-        WebView webView = rootView.findViewById(R.id.webView1);
+
         webView.loadData(String.format(htmlText, myData), "text/html", "utf-8");
         return rootView;
 
     }
 
+    @OnClick(R.id.rel_speaker)
+    public void text_to_speechListener(){
+        String toSpeak = myData;
+        textToSpeech.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+    }
+    public void onPause(){
+        if(textToSpeech !=null){
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+        super.onPause();
+    }
 
 }

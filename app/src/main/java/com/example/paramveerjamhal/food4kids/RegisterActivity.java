@@ -12,6 +12,7 @@ import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.example.paramveerjamhal.food4kids.entities.AccessToken;
 import com.example.paramveerjamhal.food4kids.entities.ApiError;
+import com.example.paramveerjamhal.food4kids.entities.User;
 import com.example.paramveerjamhal.food4kids.network.ApiService;
 import com.example.paramveerjamhal.food4kids.network.RetrofitBuilder;
 import com.facebook.login.Login;
@@ -61,6 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
     Call<AccessToken> call;
     AwesomeValidation validator;
     TokenManager tokenManager;
+    String Useremail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +93,8 @@ public class RegisterActivity extends AppCompatActivity {
         String mobile=tilMobile.getEditText().getText().toString();
         int userType=0;
 
+        Useremail = tilEmail.getEditText().getText().toString();
+
         tilName.setError(null);
         tilEmail.setError(null);
         tilPassword.setError(null);
@@ -113,6 +117,8 @@ public class RegisterActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         Log.w(TAG, "onResponse: " + response.body());
                         tokenManager.saveToken(response.body());
+
+                        tokenManager.saveUserEmail(Useremail);
                         startActivity(new Intent(RegisterActivity.this,Advance3DDrawer1Activity.class));
                         finish();
 

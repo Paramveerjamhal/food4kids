@@ -20,8 +20,9 @@ android {
 }
 
 dependencies {
-
+    implementation 'com.github.clans:fab:1.6.2'
     implementation project(':materialCalenderLibrary')
+    implementation project(':TimeViewLibrary')
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
@@ -41,6 +42,10 @@ dependencies {
     implementation 'com.infideap.drawerbehavior:drawer-behavior:0.0.5'
     implementation 'sun.bob:mcalendarview:1.0.0'
     implementation 'com.app.infideap.stylishwidget:stylish-widget:1.3.9'
+
+
+
+
 
 
 

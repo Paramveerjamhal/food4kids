@@ -25,11 +25,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.paramveerjamhal.food4kids.Fragments.AboutUsFragment;
+import com.example.paramveerjamhal.food4kids.Fragments.Admin_ScheduleFragment;
 import com.example.paramveerjamhal.food4kids.Fragments.ContactUsFragment;
 import com.example.paramveerjamhal.food4kids.Fragments.CreateEventFragment;
 import com.example.paramveerjamhal.food4kids.Fragments.HomeFragment;
+import com.example.paramveerjamhal.food4kids.Fragments.LegalPolicyFragment;
 import com.example.paramveerjamhal.food4kids.Fragments.ScheduleFragment;
-import com.example.paramveerjamhal.food4kids.Tags.AppConstant;
 import com.example.paramveerjamhal.food4kids.adapter.EventAdapter;
 import com.example.paramveerjamhal.food4kids.entities.User;
 import com.example.paramveerjamhal.food4kids.entities.UserResponse;
@@ -124,7 +125,7 @@ public class Advance3DDrawer1Activity extends AppCompatActivity
 
         call = service.user();
         final ProgressDialog m_Dialog = new ProgressDialog(this);
-        m_Dialog.setMessage("Please wait while logging...");
+        m_Dialog.setMessage("Please wait while fetching data...");
         m_Dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         m_Dialog.setCancelable(false);
         m_Dialog.show();
@@ -137,17 +138,25 @@ public class Advance3DDrawer1Activity extends AppCompatActivity
                     Log.w(TAG, "Repsonse of user api ++++:api " + response.body().getData());
                     m_Dialog.dismiss();
                     // title.setText(response.body().getData().get(0).getTitle());
+
+
                     if (response.body().getData() != null) {
-                        user_Type = response.body().getData().get(0).getUserType();
-                        userId_TAG = response.body().getData().get(0).getId();
 
-                        if (response.body().getData().get(0).getUserType().equals("0")) {
-                            hideItem();
+
+                        for(int i=0;i<response.body().getData().size();i++)
+                        {
+                            if((tokenManager.getEmail()).equals(response.body().getData().get(i).getEmail()))
+                            {
+
+                                user_Type = response.body().getData().get(i).getUserType();
+                                userId_TAG = response.body().getData().get(i).getId();
+                                if (response.body().getData().get(i).getUserType().equals("0")) {
+                                    hideItem();
+                                }
+                                user_name.setText(response.body().getData().get(i).getName());
+                                user_email.setText((response.body().getData().get(i).getEmail()));
+                            }
                         }
-                        //  Toast.makeText(Advance3DDrawer1Activity.this,response.body().getData().get(0).getId(),Toast.LENGTH_SHORT).show();
-                        user_name.setText(response.body().getData().get(0).getName());
-                        user_email.setText((response.body().getData().get(0).getEmail()));
-
                         user.addAll(response.body().getData());
                     } else {
                         Toast.makeText(Advance3DDrawer1Activity.this, "No data fetched.", Toast.LENGTH_SHORT).show();
@@ -218,19 +227,27 @@ public class Advance3DDrawer1Activity extends AppCompatActivity
                 fragment = new HomeFragment();
                 break;
             case R.id.nav_schedule:
-                fragment = new ScheduleFragment();
+                if(user_Type.equals("1")) {
+                    fragment = new Admin_ScheduleFragment();
+                }
+                else {
+                    fragment = new ScheduleFragment();
+                }
                 break;
             case R.id.nav_createEvent:
                 fragment = new CreateEventFragment();
                 break;
-           /*case R.id.nav_manageEvent:
-               fragment=new CreateEventFragment();
+           /*case R.id.nav_settings:
+               fragment=new SettingFragment();
                break;*/
             case R.id.nav_contactUs:
                 fragment = new ContactUsFragment();
                 break;
             case R.id.nav_aboutUs:
                 fragment = new AboutUsFragment();
+                break;
+            case R.id.nav_legalPolicy:
+                fragment = new LegalPolicyFragment();
                 break;
             case R.id.nav_logout:
                 tokenManager.deleteToken();
@@ -281,6 +298,7 @@ public class Advance3DDrawer1Activity extends AppCompatActivity
     private void hideItem() {
         Menu nav_Menu = navigationView.getMenu();
         nav_Menu.findItem(R.id.nav_createEvent).setVisible(false);
+        nav_Menu.findItem(R.id.nav_legalPolicy).setVisible(true);
         edit_rel.setVisibility(View.VISIBLE);
         // nav_Menu.findItem(R.id.nav_manageEvent).setVisible(false);
 

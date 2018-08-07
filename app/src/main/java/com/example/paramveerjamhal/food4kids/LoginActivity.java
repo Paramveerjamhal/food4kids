@@ -17,6 +17,7 @@ import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.example.paramveerjamhal.food4kids.entities.AccessToken;
 import com.example.paramveerjamhal.food4kids.entities.ApiError;
+import com.example.paramveerjamhal.food4kids.entities.User;
 import com.example.paramveerjamhal.food4kids.entities.UserResponse;
 import com.example.paramveerjamhal.food4kids.network.ApiService;
 import com.example.paramveerjamhal.food4kids.network.RetrofitBuilder;
@@ -69,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_login)
     void login() {
-        String email = tilEmail.getEditText().getText().toString();
+        final String email = tilEmail.getEditText().getText().toString();
         String password = tilPassword.getEditText().getText().toString();
 
         tilEmail.setError(null);
@@ -93,9 +94,11 @@ public class LoginActivity extends AppCompatActivity {
                     Log.w(TAG, "onResponse: " + response);
                     if (response.isSuccessful()) {
                         tokenManager.saveToken(response.body());
+                        tokenManager.saveUserEmail(email);
+
 
                         Intent intent=new Intent(LoginActivity.this,Advance3DDrawer1Activity.class);
-                     //   intent.putExtra("userType",userType.toString());
+                        intent.putExtra("email",email);
                         startActivity(intent);
                         m_Dialog.dismiss();
                         finish();

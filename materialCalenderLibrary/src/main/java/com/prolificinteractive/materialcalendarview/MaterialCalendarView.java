@@ -811,8 +811,9 @@ public class MaterialCalendarView extends ViewGroup {
 
     /**
      * @param calendar a Calendar set to a day to select. Null to clear selection
+     * @param b
      */
-    public void setSelectedDate(@Nullable Calendar calendar) {
+    public void setSelectedDate(@Nullable Calendar calendar, boolean b) {
         setSelectedDate(CalendarDay.from(calendar));
     }
 

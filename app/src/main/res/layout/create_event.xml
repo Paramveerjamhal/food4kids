@@ -4,30 +4,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:fab="http://schemas.android.com/apk/res-auto">
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"/>
-   <!-- <include
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        layout="@layout/app_image" />-->
 
-    <!--<TextView
-
-           android:id="@+id/heading"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="CREATE EVENT"
-           android:layout_centerHorizontal="true"
-           android:layout_marginTop="10dp"
-           android:textSize="30dp"/>-->
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_create"
+        android:layout_above="@+id/relative_bottom"
         android:layout_below="@+id/toolbar"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="30dp"
@@ -172,8 +160,46 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:inputType="text"
-               android:hint="Organizer"/>
+               android:hint="@string/organizer"/>
        </android.support.design.widget.TextInputLayout>
+
+       <android.support.design.widget.TextInputLayout
+           android:id="@+id/til_volNo"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:passwordToggleEnabled="true">
+           <EditText android:id="@+id/et_volNo"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:inputType="text"
+               android:hint="@string/no_of_volunteers_required"/>
+       </android.support.design.widget.TextInputLayout>
+
+       <RelativeLayout
+           android:id="@+id/rl_task"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:padding="10dp"
+           >
+           <TextView
+               android:id="@+id/spinner_task"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="@string/event_task"
+               android:textSize="15dp"
+               android:layout_marginBottom="5dp"
+               />
+           <Spinner
+               android:layout_below="@+id/spinner_task"
+               android:id="@+id/spinner_eventTask"
+               android:layout_width="match_parent"
+               android:layout_centerVertical="true"
+               android:layout_height="wrap_content"
+               android:backgroundTint="#4C8419"
+               android:spinnerMode="dropdown"
+               />
+       </RelativeLayout>
+
 
        <RelativeLayout
            android:id="@+id/til_startTime"
@@ -186,6 +212,7 @@
                android:paddingRight="10dp"
                android:paddingBottom="10dp"
                android:paddingTop="10dp"
+               android:textColor="@color/black"
                android:hint="@string/event_start_time"/>
 
            <View
@@ -205,9 +232,10 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:paddingRight="10dp"
+               android:textColor="@color/black"
                android:paddingBottom="10dp"
                android:paddingTop="10dp"
-               android:hint="@string/event_start_time"/>
+               android:hint="@string/event_end_time"/>
 
            <View
                android:layout_width="match_parent"
@@ -217,17 +245,103 @@
        </RelativeLayout>
    </LinearLayout>
     </ScrollView>
+    <RelativeLayout
+        android:id="@+id/relative_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_create"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:padding="15dp"
         android:textColor="#fff"
         android:textSize="15sp"
         android:gravity="center_horizontal"
         android:textStyle="bold"
         android:text="@string/create_event"
+        android:visibility="visible"
+        android:layout_below="@+id/scrollview"
         android:background="@color/green_theme"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/save_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:textColor="#fff"
+        android:textSize="15sp"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
+        android:background="@color/green_theme"
+        android:text="SAVE"
+        android:visibility="gone"/>
+    </RelativeLayout>
+
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:visibility="visible"
+        android:id="@+id/action_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="11dp"
+        android:layout_marginLeft="11dp"
+        android:layout_marginRight="11dp"
+        fab:menu_animationDelayPerItem="55"
+        fab:menu_backgroundColor="@android:color/transparent"
+        fab:menu_buttonSpacing="0dp"
+        fab:menu_colorNormal="@color/green_theme"
+        fab:menu_colorPressed="#dc4b3f"
+        fab:menu_colorRipple="#99d4d4d4"
+        fab:menu_fab_size="normal"
+        fab:menu_icon="@drawable/fab_add"
+        fab:menu_labels_colorNormal="#333"
+        fab:menu_labels_colorPressed="#444"
+        fab:menu_labels_colorRipple="#66efecec"
+        fab:menu_labels_cornerRadius="3dp"
+        fab:menu_labels_ellipsize="none"
+        fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
+        fab:menu_labels_margin="0dp"
+        fab:menu_labels_maxLines="-1"
+        fab:menu_labels_padding="8dp"
+        fab:menu_labels_position="left"
+        fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+        fab:menu_labels_showShadow="true"
+        fab:menu_labels_singleLine="false"
+        fab:menu_labels_textColor="#f2f1f1"
+        fab:menu_labels_textSize="15sp"
+        fab:menu_openDirection="up"
+        fab:menu_shadowColor="#66aff198"
+        fab:menu_shadowRadius="4dp"
+        fab:menu_shadowXOffset="1dp"
+        fab:menu_shadowYOffset="4dp"
+        fab:menu_showShadow="true">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_edit"
+            app:fab_colorNormal="@color/green_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/fab_edit"
+            android:visibility="visible"
+            fab:fab_label="Update Event"
+            fab:fab_size="mini" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_delete"
+            app:fab_colorNormal="@color/green_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/fab_del"
+            fab:fab_label="delete event"
+            android:layout_margin="16dp"
+            android:padding="10dp"
+            fab:fab_size="mini" />
+
+
+    </com.github.clans.fab.FloatingActionMenu>
+
 </RelativeLayout>

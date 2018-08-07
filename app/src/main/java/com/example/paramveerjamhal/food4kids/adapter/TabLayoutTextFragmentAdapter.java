@@ -5,9 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.example.paramveerjamhal.food4kids.Fragments.EventsFragment;
-import com.example.paramveerjamhal.food4kids.Fragments.PostFragment;
-import com.example.paramveerjamhal.food4kids.Fragments.TabLayoutTextFragmentTab1;
-import com.example.paramveerjamhal.food4kids.Fragments.TabLayoutTextFragmentTab2;
+import com.example.paramveerjamhal.food4kids.Fragments.SpecialFragment;
 
 public class TabLayoutTextFragmentAdapter extends FragmentStatePagerAdapter {
 
@@ -32,7 +30,7 @@ public class TabLayoutTextFragmentAdapter extends FragmentStatePagerAdapter {
                 return tab1;
 
             case TAB_2:
-                TabLayoutTextFragmentTab2 tab2 = new TabLayoutTextFragmentTab2();
+                SpecialFragment tab2 = new SpecialFragment();
                 return tab2;
 
 

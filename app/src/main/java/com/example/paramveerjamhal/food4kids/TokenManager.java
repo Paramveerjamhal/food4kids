@@ -3,6 +3,7 @@ package com.example.paramveerjamhal.food4kids;
 import android.content.SharedPreferences;
 
 import com.example.paramveerjamhal.food4kids.entities.AccessToken;
+import com.example.paramveerjamhal.food4kids.entities.User;
 import com.example.paramveerjamhal.food4kids.entities.UserResponse;
 
 public class TokenManager {
@@ -33,16 +34,30 @@ public class TokenManager {
         editor.putString("REFRESH_TOKEN",token.getRefreshToken()).commit();
     }
 
+   public void saveUserEmail(String user)
+
+    {
+        editor.putString("useremail",user).commit();
+    }
+
+    public String getEmail()
+    {
+
+        return prefs.getString("useremail",null);
+    }
+
 
     public void deleteToken(){
         editor.remove("ACCESS_TOKEN").commit();
         editor.remove("REFRESH_TOKEN").commit();
+        editor.remove("useremail").commit();
     }
     public AccessToken getToken()
     {
       AccessToken token=new AccessToken();
       token.setAccessToken(prefs.getString("ACCESS_TOKEN",null));
       token.setRefreshToken(prefs.getString("REFRESH_TOKEN",null));
+
       return token;
     }
 }

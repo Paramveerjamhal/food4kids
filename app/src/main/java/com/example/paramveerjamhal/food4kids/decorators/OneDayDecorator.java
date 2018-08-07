@@ -1,6 +1,9 @@
 package com.example.paramveerjamhal.food4kids.decorators;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 
@@ -19,15 +22,16 @@ import java.util.HashSet;
 public class OneDayDecorator implements DayViewDecorator {
 
     private CalendarDay date;
-    private HashSet<CalendarDay> dates;
+
+    private static int color = Color.parseColor("#FFC0CB");
+    private Drawable highlightDrawable =new ColorDrawable(color);
+
+
     public OneDayDecorator() {
       //  date = CalendarDay.today();
     }
 
-    public OneDayDecorator(Collection<CalendarDay> dates){
-        this.dates = new HashSet<>(dates);
 
-    }
 
     @Override
     public boolean shouldDecorate(CalendarDay day) {
@@ -36,8 +40,9 @@ public class OneDayDecorator implements DayViewDecorator {
 
     @Override
     public void decorate(DayViewFacade view) {
-        view.addSpan(new StyleSpan(Typeface.BOLD));
-        view.addSpan(new RelativeSizeSpan(1.4f));
+        /*view.addSpan(new StyleSpan(Typeface.BOLD));
+        view.addSpan(new RelativeSizeSpan(1.4f));*/
+        view.setSelectionDrawable(highlightDrawable);
     }
 
     /**
@@ -45,5 +50,6 @@ public class OneDayDecorator implements DayViewDecorator {
      */
     public void setDate(Date date) {
         this.date = CalendarDay.from(date.getTime());
+
     }
 }

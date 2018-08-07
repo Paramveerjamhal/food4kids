@@ -239,7 +239,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textLongMessage"
-                        android:hint="Description" />
+                        android:hint="Organizer" />
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 

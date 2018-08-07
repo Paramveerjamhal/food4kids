@@ -2,12 +2,29 @@ package com.example.paramveerjamhal.food4kids.entities;
 
 public class Event {
     int eventId;
+    int userId;
+    int eventType;
     String eventTitle;
     String eventDescription;
     String eventAddress;
     String postal_code;
     String event_Organizer;
     String event_Date;
+
+
+    public Event(int userId,int eventType,String eventTitle, String eventDescription, String eventAddress,
+                 String postal_code, String event_Date, String event_Organizer ) {
+        this.userId=userId;
+        this.eventType=eventType;
+        this.eventTitle=eventTitle;
+        this.eventDescription=eventDescription;
+        this.eventAddress=eventAddress;
+        this.postal_code=postal_code;
+        this.event_Date=event_Date;
+        this.event_Organizer=event_Organizer;
+
+    }
+
 
     public String getEvent_Date() {
         return event_Date;
@@ -17,15 +34,20 @@ public class Event {
         this.event_Date = event_Date;
     }
 
-    public Event(String eventTitle, String eventDescription, String eventAddress, String postal_code, String event_Date, String event_Organizer ) {
-        this.eventTitle=eventTitle;
-        this.eventDescription=eventDescription;
-        this.eventAddress=eventAddress;
-        this.postal_code=postal_code;
-        this.event_Date=event_Date;
-        this.event_Organizer=event_Organizer;
+    public int getUserId() {
+        return userId;
+    }
 
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
+    public int getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(int eventType) {
+        this.eventType = eventType;
     }
 
     public String getEventTitle() {

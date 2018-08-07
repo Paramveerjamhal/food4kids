@@ -2,20 +2,14 @@ package com.example.paramveerjamhal.food4kids.Fragments;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,21 +17,16 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.paramveerjamhal.food4kids.Advance3DDrawer1Activity;
-import com.example.paramveerjamhal.food4kids.LoginActivity;
 import com.example.paramveerjamhal.food4kids.R;
 import com.example.paramveerjamhal.food4kids.TimeViewActivity;
 import com.example.paramveerjamhal.food4kids.TokenManager;
-import com.example.paramveerjamhal.food4kids.decorators.EventDecorator;
-import com.example.paramveerjamhal.food4kids.decorators.HighlightWeekendsDecorator;
 import com.example.paramveerjamhal.food4kids.decorators.OneDayDecorator;
 import com.example.paramveerjamhal.food4kids.entities.Part_WeeklyModel;
 import com.example.paramveerjamhal.food4kids.entities.Part_WeeklyResponse;
-import com.example.paramveerjamhal.food4kids.entities.Participate;
-import com.example.paramveerjamhal.food4kids.entities.Participation_Response;
-import com.example.paramveerjamhal.food4kids.entities.User;
 import com.example.paramveerjamhal.food4kids.entities.WeeklyEvent;
 import com.example.paramveerjamhal.food4kids.entities.Weekly_EventResponse;
 import com.example.paramveerjamhal.food4kids.network.ApiService;
@@ -48,21 +37,15 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
-import java.io.Serializable;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,7 +55,7 @@ import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class ScheduleFragment extends Fragment implements OnDateSelectedListener {
+public class Admin_ScheduleFragment extends Fragment implements OnDateSelectedListener {
 
     private static final String TAG ="ScheduleFragment" ;
     private final OneDayDecorator oneDayDecorator = new OneDayDecorator();
@@ -88,11 +71,20 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
     MaterialCalendarView widget;
     @BindView(R.id.spinner)
     Spinner role_spinner;
+    @BindView(R.id.tv_complete)
+    TextView tv_event_complete;
+    @BindView(R.id.tv_events)
+    TextView tv_event_available;
+    @BindView(R.id.tv_waiting)
+    TextView tv_event_waiting;
+
+
     List<DayOfWeek> dayofweekList;
+
 
     ArrayList<CalendarDay> dates=new ArrayList<>();
     private ArrayList<WeeklyEvent> weekly_event = new ArrayList<WeeklyEvent>();
-    ArrayList<Part_WeeklyModel> part_eventList=new ArrayList<Part_WeeklyModel>();
+    ArrayList<String> part_eventList=new ArrayList<String>();
 
     String startHour,endHour;
     ProgressDialog m_Dialog;
@@ -117,6 +109,11 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
         tokenManager = TokenManager.getInstance(getActivity().getSharedPreferences("pref", MODE_PRIVATE));
         service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
         m_Dialog= new ProgressDialog(getActivity());
+
+        tv_event_available.setText("Events Available");
+        tv_event_complete.setText("Seats Booked");
+        tv_event_waiting.setText("User waiting Approval");
+
         dayofweekList = new ArrayList<>();
         widget.setOnDateChangedListener(this);
         widget.setShowOtherDates(MaterialCalendarView.SHOW_ALL);
@@ -124,10 +121,8 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
         spinnerArray.add("packing");
         spinnerArray.add("sorting");
         spinnerArray.add("delivery");
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 getActivity(), android.R.layout.simple_spinner_item, spinnerArray);
-
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         role_spinner = (Spinner) rootView.findViewById(R.id.spinner);
         role_spinner.setAdapter(adapter);
@@ -138,7 +133,6 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
 
         Calendar instance1 = Calendar.getInstance();
         instance1.set(instance1.get(Calendar.YEAR), Calendar.JANUARY, 1);
-
         Calendar instance2 = Calendar.getInstance();
         instance2.set(instance2.get(Calendar.YEAR), Calendar.DECEMBER, 31);
 
@@ -234,6 +228,7 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
 
                             callParticipationService();
                         }
+
                     }
                 }//   widget.addDecorators(new AllDaysDisabledDecorator(), new EventDecorator(Color.RED, days), oneDayDecorator);
                 else {
@@ -280,9 +275,9 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
                                 e.printStackTrace();
                             }
                             widget.addDecorators(new AllDaysDisabledDecorator(), new EnableDatesDecorator(dates));
-                            callParticipationService();
-                        }
 
+                        }
+                        callParticipationService();
                     }
                 }//   widget.addDecorators(new AllDaysDisabledDecorator(), new EventDecorator(Color.RED, days), oneDayDecorator);
                 else {
@@ -328,8 +323,9 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
                                 e.printStackTrace();
                             }
                             widget.addDecorators(new AllDaysDisabledDecorator(), new EnableDatesDecorator(dates));
-                            callParticipationService();
+
                         }
+                        callParticipationService();
                     }
                 }//   widget.addDecorators(new AllDaysDisabledDecorator(), new EventDecorator(Color.RED, days), oneDayDecorator);
                 else {
@@ -346,11 +342,10 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
     }
 
     private void callParticipationService(){
-      m_Dialog.setMessage("Please wait while fetching data...");
+        m_Dialog.setMessage("Please wait while fetching data...");
         m_Dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         m_Dialog.setCancelable(false);
         m_Dialog.show();
-//        part_call = service.partJoinWeekly(Advance3DDrawer1Activity.userId_TAG);
         part_call = service.partJoinWeeklyAdmin();
         part_call.enqueue(new Callback<Part_WeeklyResponse>() {
             @Override
@@ -360,50 +355,45 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
                 if (response.isSuccessful()) {
                     if (response.body().getData().size() != 0) {
                         List<Part_WeeklyModel> participateList = response.body().getData();
-                        part_eventList.addAll(participateList);
+                        //part_eventList.addAll(participateList);
                         for (int i = 0; i < response.body().getData().size(); i++) {
                             System.out.println("response id "
                                     + response.body().getData().get(i).getEvent_id());
-                           if(Advance3DDrawer1Activity.userId_TAG==response.body().getData().get(i).getUser_id()) {
-                               if ((participateList.get(i).getWeekly_eventTask().toLowerCase()).equals(spinnerText)) {
-                                   // noOfVolList.add(participateList.get(i).getWeekly_eventTask());
-                                   ArrayList<Part_WeeklyModel> noOfVolList = new ArrayList<>(participateList);
-                                   System.out.println("shortsighted"+ noOfVolList);
+                            if ((participateList.get(i).getWeekly_eventTask().toLowerCase()).equals(spinnerText)) {
+                                String date = response.body().getData().get(i).getDate();
+                                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                                Date date1 = null;
+                                try {
+                                    date1 = format.parse(date);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                System.out.println(date1);
+                                Calendar c = Calendar.getInstance();
+                                c.setTime(date1);
+                                CalendarDay day = CalendarDay.from(c);
+                                widget.invalidateDecorators();
+                                if (participateList.get(i).getAdmin_approveStatus() == 1) {
+                                    widget.addDecorator(new ChangingBackgroundDecorator(day, getResources().getColor(R.color.green_theme)));
+                                }
+                                else
+                                {
+                                    widget.addDecorator(new ChangingBackgroundDecorator(day, getResources().getColor(R.color.waiting)));
+                                }
+                            }
+                            System.out.println("Selected " + Selected_StartDate + " " + Selected_EndDate);
 
-                                   String date = response.body().getData().get(i).getDate();
-                                   SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                                   Date date1 = null;
-                                   try {
-                                       date1 = format.parse(date);
-                                   } catch (ParseException e) {
-                                       e.printStackTrace();
-                                   }
-                                   System.out.println(date1);
-                                   Calendar c = Calendar.getInstance();
-                                   c.setTime(date1);
-                                   CalendarDay day = CalendarDay.from(c);
-                                   widget.invalidateDecorators();
-                                   if ((participateList.get(i).getNoOfVol()) == (noOfVolList.size()) && participateList.get(i).getAdmin_approveStatus() == 1) {
-                                       widget.addDecorator(new ChangingBackgroundDecorator(day, getResources().getColor(R.color.mehroon)));
-                                       widget.setEnabled(false);
-                                   } else if (participateList.get(i).getAdmin_approveStatus() == 1) {
-                                       widget.addDecorator(new ChangingBackgroundDecorator(day, getResources().getColor(R.color.green_theme)));
-                                   } else {
-                                       widget.addDecorator(new ChangingBackgroundDecorator(day, getResources().getColor(R.color.waiting)));
-                                   }
-
-                                   System.out.println("Selected " + Selected_StartDate + " " + Selected_EndDate);
-
-                               }
-                           }
                         }
-                        m_Dialog.dismiss();
-                    } else {
-                        m_Dialog.dismiss();
-                        //  Toast.makeText(getActivity(), "No participation.", Toast.LENGTH_SHORT).show();
+
                     }
+                    m_Dialog.dismiss();
+                }
+                else {
+                    m_Dialog.dismiss();
+                    //  Toast.makeText(getActivity(), "No participation.", Toast.LENGTH_SHORT).show();
                 }
             }
+
 
             @Override
             public void onFailure(Call<Part_WeeklyResponse> call, Throwable t) {
@@ -419,16 +409,14 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
         //If you change a decorate, you need to invalidate decorators
      //   widget.invalidateDecorators();
       //  widget.addDecorators(new AllDaysDisabledDecorator(),new EnableDatesDecorator(dates),oneDayDecorator);
-        //oneDayDecorator.setDate(date.getDate());
+        oneDayDecorator.setDate(date.getDate());
         System.out.println("selected from on date selected method"+selected);
 
      //   widget.addDecorators(new AllDaysDisabledDecorator(), new EventDecorator(Color.RED, days),new ChangingBackgroundDecorator(date), oneDayDecorator);
       //  widget.addDecorators(new ChangingBackgroundDecorator(date));
 
-        CalendarDay day = null;
-        Intent intent = new Intent(getActivity(), TimeViewActivity.class);
-        for(int i=0;i<weekly_event.size();i++) {
 
+        for(int i=0;i<weekly_event.size();i++) {
 
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Date date1 = null;
@@ -437,17 +425,21 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+            System.out.println(date1);
             Calendar c = Calendar.getInstance();
             c.setTime(date1);
-            day = CalendarDay.from(c);
-            if (date.equals(day)) {
-                intent.putExtra("weeklyevent", weekly_event);
-                intent.putExtra("position", i);
-    }
-          //  Toast.makeText(getActivity(), "intent "+intent, Toast.LENGTH_SHORT).show();
-        }
-         startActivity(intent);
+            CalendarDay day = CalendarDay.from(c);
 
+           /*     Intent intent = new Intent(getActivity(), TimeViewActivity.class);
+                if (date.equals(day)) {
+                    intent.putExtra("weeklyevent", weekly_event);
+                    intent.putExtra("position", i);
+                }
+                startActivity(intent);*/
+
+
+
+        }
 
 
     }

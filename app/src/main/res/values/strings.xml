@@ -8,6 +8,9 @@
 
     <!--validation errors-->
     <string name="err_name">The name field is required. </string>
+    <string name="err_date">The date field is required. </string>
+    <string name="err_start_time">The start time field is required. </string>
+    <string name="err_end_time">The end time field is required. </string>
     <string name="err_email">The email must be a valid email address. </string>
     <string name="err_password">The password must be at least 6 characters. </string>
     <string name="err_passwordconfirm">Password does not match</string>
@@ -15,6 +18,7 @@
     <string name="err_city">The city field is required.</string>
     <string name="err_postalcode">The postal code field is required.</string>
     <string name="err_mobile">The mobile field is required.</string>
+    <string name="err_noOfVolunteer"> You must give the number of volunteers </string>
 
    <!--navigation drawer-->
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -35,5 +39,20 @@
     <string name="event_start_time">event Start Time</string>
     <string name="event_end_time">Event End Time</string>
     <string name="create_event">Create Event</string>
+
+
+    <string name="noti_channel_default">Notification Settings </string>
+    <string name="request">Request has been sent. Plase wait for admin approval.</string>
+    <string name="request_not">Something went wrong.Please try Again.</string>
+    <string name="participation_success">Request Has been sent.Please Wait for Admin Approval.</string>
+    <string name="participation_update">Availability Time Updated.</string>
+    <string name="participation_delete">Participation removed successfully.</string>
+    <string name="ok">OK</string>
+    <string name="request_approved">Request Approved</string>
+    <string name="waiting_for_approval">Waiting for approval</string>
+    <string name="events_available">Events Available</string>
+    <string name="no_of_volunteers_required">No of Volunteers required</string>
+    <string name="event_task">Event Task</string>
+    <string name="organizer">Organizer</string>
 
 </resources>
