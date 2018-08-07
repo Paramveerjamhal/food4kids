@@ -65,6 +65,9 @@
         <activity
             android:name=".TimeViewActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".UserListActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 

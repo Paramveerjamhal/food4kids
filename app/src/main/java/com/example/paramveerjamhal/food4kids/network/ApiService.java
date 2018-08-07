@@ -6,6 +6,7 @@ import com.example.paramveerjamhal.food4kids.entities.Part_WeeklyResponse;
 import com.example.paramveerjamhal.food4kids.entities.Participation_Response;
 import com.example.paramveerjamhal.food4kids.entities.PostResponse;
 import com.example.paramveerjamhal.food4kids.entities.UserResponse;
+import com.example.paramveerjamhal.food4kids.entities.UserWithEventTaskResponse;
 import com.example.paramveerjamhal.food4kids.entities.WeeklyEvent;
 import com.example.paramveerjamhal.food4kids.entities.Weekly_EventResponse;
 
@@ -147,5 +148,14 @@ public interface ApiService {
     @POST("delete_participation")
     @FormUrlEncoded
     Call<AccessToken> delete_participation(@Field("participate_id") int participate_id);
+
+
+    @POST("ViewUserWithEventTask")
+    @FormUrlEncoded
+    Call<UserWithEventTaskResponse> ViewUserWithEventTask(
+                                                    @Field("date") String date,
+                                                    @Field("weekly_eventTask") String weekly_eventTask);
+
+
 }
 //  @Field("address") String address, //   @Field("reEnterPassword") String reEnterPassword)  ; //  @Field("mobile") String mobile,

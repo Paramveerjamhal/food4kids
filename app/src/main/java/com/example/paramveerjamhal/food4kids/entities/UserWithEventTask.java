@@ -18,6 +18,7 @@ public class UserWithEventTAsk {
     public UserWithEventTAsk(int id,int w_event_id, int event_id, String date,int participate_id,
                              String user_startTime, String user_endTime, int admin_approveStatus,String name,
                              String email,String mobile) {
+        this.id=id;
         this.w_event_id=w_event_id;
         this.event_id=event_id;
         this.date=date;

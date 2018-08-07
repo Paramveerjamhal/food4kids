@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_dialog_main"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_marginLeft="25dp"
+    android:layout_marginRight="25dp"
+    android:padding="10dp">
+
+  <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:layout_marginBottom="10dp">
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@mipmap/trans_logo"
+        android:paddingBottom="10dp"
+        android:layout_marginRight="5dp"/>
+    <TextView
+        android:id="@+id/tv_heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:paddingBottom="10dp"
+        android:text="Set Availability"
+        android:background="@drawable/shape_session_dialog"
+        android:textColor="@color/green_theme"
+        android:textSize="20sp"
+        />
+</LinearLayout>
+
+
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/green_theme"
+        android:layout_marginBottom="5dp"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="2"
+    android:layout_marginBottom="10dp">
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_start_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="5dp">
+        <EditText android:id="@+id/et_startTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:hint="Start Time"/>
+    </android.support.design.widget.TextInputLayout>
+
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_end_time"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+        <EditText android:id="@+id/et_endtime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:hint="End Time"/>
+    </android.support.design.widget.TextInputLayout>
+<TextView
+    android:id="@+id/request"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/request"
+    android:layout_margin="5dp"
+    android:visibility="gone"
+    android:padding="10dp"/>
+</LinearLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/green_theme"
+        android:layout_marginBottom="5dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/d_rl_padding_prog_dialog"
+        android:layout_marginRight="@dimen/d_rl_padding_prog_dialog"
+        android:layout_marginLeft="@dimen/d_rl_padding_prog_dialog"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
+        android:weightSum="2">
+
+
+    <TextView
+            android:id="@+id/tv_ok"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ok"
+        android:padding="10dp"
+            android:textColor="@color/white"
+        android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginRight="@dimen/d_rl_padding_prog_dialog"
+            android:background="@color/green_theme"/>
+
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Cancel"
+            android:background="@color/green_theme"
+            android:layout_marginLeft="@dimen/d_rl_padding_prog_dialog"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+
+    </LinearLayout>

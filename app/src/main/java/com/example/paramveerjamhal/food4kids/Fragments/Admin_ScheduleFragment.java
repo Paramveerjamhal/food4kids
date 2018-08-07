@@ -24,6 +24,7 @@ import com.example.paramveerjamhal.food4kids.Advance3DDrawer1Activity;
 import com.example.paramveerjamhal.food4kids.R;
 import com.example.paramveerjamhal.food4kids.TimeViewActivity;
 import com.example.paramveerjamhal.food4kids.TokenManager;
+import com.example.paramveerjamhal.food4kids.UserListActivity;
 import com.example.paramveerjamhal.food4kids.decorators.OneDayDecorator;
 import com.example.paramveerjamhal.food4kids.entities.Part_WeeklyModel;
 import com.example.paramveerjamhal.food4kids.entities.Part_WeeklyResponse;
@@ -429,19 +430,15 @@ public class Admin_ScheduleFragment extends Fragment implements OnDateSelectedLi
             Calendar c = Calendar.getInstance();
             c.setTime(date1);
             CalendarDay day = CalendarDay.from(c);
-
-           /*     Intent intent = new Intent(getActivity(), TimeViewActivity.class);
+                Intent intent = new Intent(getActivity(), UserListActivity.class);
                 if (date.equals(day)) {
                     intent.putExtra("weeklyevent", weekly_event);
+                    intent.putExtra("weekly_date",weekly_event.get(i).getDate());
+                    intent.putExtra("task",weekly_event.get(i).getWeekly_eventTask());
                     intent.putExtra("position", i);
                 }
-                startActivity(intent);*/
-
-
-
+                startActivity(intent);
         }
-
-
     }
 
     /************************************************ ALL THE DECORATORS ******************************************/

@@ -4,9 +4,9 @@ import java.util.List;
 
 public class UserWithEventTaskResponse {
 
-List<UserWithEventTaskResponse> data;
+List<UserWithEventTAsk> data;
 
-    public List<UserWithEventTaskResponse> getData() {
+    public List<UserWithEventTAsk> getData() {
         return data;
     }
 }
