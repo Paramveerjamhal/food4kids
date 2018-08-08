@@ -22,7 +22,7 @@ public class RetrofitBuilder {
 
 
    // private static final String BASE_URL="http://10.192.235.51/food4kids/web/public/api/";
-      private static final String BASE_URL="http://192.168.0.15/food4kids/web/public/api/";
+      private static final String BASE_URL="http://192.168.0.13/food4kids/web/public/api/";
 
 
     private final static  OkHttpClient client=buildClient();

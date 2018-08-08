@@ -1,23 +1,30 @@
 package com.example.paramveerjamhal.food4kids.entities;
 
-public class UserWithEventTAsk {
+import java.io.Serializable;
+
+public class UserWithEventTAsk implements Serializable {
     int id;
+    String name;
+    String email;
+    String address;
+    String city;
+    String postal_code;
+    String mobile;
     int w_event_id;
     int event_id;
     int participate_id;
     int admin_approveStatus;
     String user_startTime;
     String user_endTime;
-    String name;
-    String email;
-    String mobile;
     String date;
+
+
 
 
 
     public UserWithEventTAsk(int id,int w_event_id, int event_id, String date,int participate_id,
                              String user_startTime, String user_endTime, int admin_approveStatus,String name,
-                             String email,String mobile) {
+                             String email,String mobile,String address,String city,String postal_code) {
         this.id=id;
         this.w_event_id=w_event_id;
         this.event_id=event_id;
@@ -29,6 +36,9 @@ public class UserWithEventTAsk {
         this.name=name;
         this.mobile=mobile;
         this.email=email;
+        this.address=address;
+        this.postal_code=postal_code;
+        this.city=city;
     }
 
     public int getId() {
@@ -115,8 +125,35 @@ public class UserWithEventTAsk {
         return date;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPostal_code() {
+        return postal_code;
+    }
+
+    public void setPostal_code(String postal_code) {
+        this.postal_code = postal_code;
+    }
+
     public void setDate(String date) {
         this.date = date;
     }
+
+
+
 }
 

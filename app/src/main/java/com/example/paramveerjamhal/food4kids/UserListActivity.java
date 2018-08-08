@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +54,8 @@ public class UserListActivity extends AppCompatActivity {
     ArrayList<UserWithEventTAsk> userwithTaskList;
     @BindView(R.id.rv_my_events)
      RecyclerView mMyUserRV;
+    @BindView(R.id.tv_no_result)
+    TextView tv_noResult;
 
     ArrayList<WeeklyEvent> aListModel=new ArrayList<WeeklyEvent>();
     int position,event_id;
@@ -59,58 +64,58 @@ public class UserListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setTitle("User Participated");
+
         setContentView(R.layout.activity_event_layout);
         ButterKnife.bind(this);
         tokenManager = TokenManager.getInstance(this.getSharedPreferences("pref", MODE_PRIVATE));
         service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
-        aListModel = (ArrayList<WeeklyEvent>) getIntent().getExtras().getSerializable("weeklyevent");
-        position=getIntent().getIntExtra("position",-1);
-        if(aListModel.size()!=0) {
-            event_id = aListModel.get(position).getEvent_id();
-        }
-        date=this.getIntent().getStringExtra("weekly_date");
-        weekly_task=this.getIntent().getStringExtra("task");
-        userwithTaskList=new ArrayList<>();
-        CallUserInfoService(date,weekly_task);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        AppBarLayout appBarLayout=(AppBarLayout)findViewById(R.id.appbar);
+        appBarLayout.setVisibility(View.VISIBLE);
+        toolbar.setVisibility(View.VISIBLE);
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setDisplayShowHomeEnabled(true);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.green_theme));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mMyUserRV.setLayoutManager(mLayoutManager);
-
-
-
+        date=this.getIntent().getStringExtra("date");
+        weekly_task=this.getIntent().getStringExtra("task");
+        this.setTitle(weekly_task+" User Participated");
+        userwithTaskList=new ArrayList<>();
+        CallUserInfoService(date);
     }
 
-    private void CallUserInfoService(String date,String task) {
-        call = service.ViewUserWithEventTask(date,task);
+    public void CallUserInfoService(String date) {
+        call = service.ViewUserWithEventTask(date);
         call.enqueue(new Callback<UserWithEventTaskResponse>() {
             @Override
             public void onResponse(Call<UserWithEventTaskResponse> call, Response<UserWithEventTaskResponse> response) {
                 Log.w(TAG, "onResponse: " + response);
 
                 if (response.isSuccessful()) {
-
-                    Log.w(TAG, "Repsonse of post fragment api ++++:api " + response.body().getData());
+                    Log.w(TAG, "Repsonse of User ListActivity fragment api ++++:api " + response.body().getData());
                     if (response.body().getData().size() != 0) {
-
                         List<UserWithEventTAsk> userWithEventTAskList=response.body().getData();
-
-
                         userwithTaskList.addAll(userWithEventTAskList);
                         mUserAdapter = new UserAdapter(UserListActivity.this,userwithTaskList);
-                        mMyUserRV.setAdapter(mUserAdapter);
-
+                        mMyUserRV.setAdapter(mUserAdapter) ;
+                        mUserAdapter.notifyDataSetChanged();
+                        tv_noResult.setVisibility(View.GONE);
                     } else {
-                        Toast.makeText(UserListActivity.this, "No data fetched.", Toast.LENGTH_SHORT).show();
-
+                     //   Toast.makeText(UserListActivity.this, "No data fetched.", Toast.LENGTH_SHORT).show();
+                         tv_noResult.setVisibility(View.VISIBLE);
+                        tv_noResult.setText("No user participated yet.");
                     }
-
-
-
                 } else {
-                   /*  if(response.code()==401)
-                     {
-*/
-                    startActivity(new Intent(UserListActivity.this, LoginActivity.class));
+                    tv_noResult.setVisibility(View.VISIBLE);
                     finish();
                     tokenManager.deleteToken();
 
@@ -142,5 +147,9 @@ public class UserListActivity extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

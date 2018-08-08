@@ -6,17 +6,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:fab="http://schemas.android.com/apk/res-auto">
-    <android.support.v7.widget.Toolbar
+   <!-- <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"/>
+-->
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
 
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/green_theme"/>
+
+
+
+    </android.support.design.widget.AppBarLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/relative_bottom"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/appbar"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
@@ -58,11 +74,13 @@
        <android.support.design.widget.TextInputLayout
            android:id="@+id/til_event_name"
            android:layout_width="match_parent"
-           android:layout_height="wrap_content">
+           android:layout_height="wrap_content"
+           >
            <EditText android:id="@+id/et_title"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:inputType="text"
+               android:imeOptions="actionNext"
                android:hint="Event Title" />
        </android.support.design.widget.TextInputLayout>
 
@@ -75,6 +93,7 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:inputType="textLongMessage"
+               android:imeOptions="actionNext"
                android:hint="Description" />
        </android.support.design.widget.TextInputLayout>
 
@@ -86,6 +105,7 @@
            <EditText android:id="@+id/et_address"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
+               android:imeOptions="actionNext"
                android:inputType="textLongMessage"
                android:hint="Address" />
        </android.support.design.widget.TextInputLayout>
@@ -102,6 +122,7 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:inputType="textPostalAddress"
+               android:imeOptions="actionNext"
                android:hint="PostalCode"/>
        </android.support.design.widget.TextInputLayout>
 
@@ -133,6 +154,7 @@
                    android:layout_centerVertical="true"
                    android:cursorVisible="false"
                    android:focusable="false"
+                   android:imeOptions="actionNext"
                    android:hint="Event Date"
                    android:textColorHint="#000" />
 
@@ -160,6 +182,7 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:inputType="text"
+               android:imeOptions="actionNext"
                android:hint="@string/organizer"/>
        </android.support.design.widget.TextInputLayout>
 
@@ -172,6 +195,7 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:inputType="text"
+               android:imeOptions="actionNext"
                android:hint="@string/no_of_volunteers_required"/>
        </android.support.design.widget.TextInputLayout>
 
@@ -205,7 +229,8 @@
            android:id="@+id/til_startTime"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:padding="10dp">
+           android:padding="10dp"
+           android:imeOptions="actionNext">
            <TextView android:id="@+id/et_startTime"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
@@ -227,7 +252,8 @@
            android:id="@+id/til_endTime"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:padding="10dp">
+           android:padding="10dp"
+           android:imeOptions="actionDone">
            <TextView android:id="@+id/et_endTime"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"

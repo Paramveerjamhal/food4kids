@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +19,11 @@ import android.widget.Toast;
 import com.example.paramveerjamhal.food4kids.LoginActivity;
 import com.example.paramveerjamhal.food4kids.R;
 import com.example.paramveerjamhal.food4kids.TokenManager;
-import com.example.paramveerjamhal.food4kids.adapter.EventAdapter;
+import com.example.paramveerjamhal.food4kids.adapter.SpecialEventAdapter;
 import com.example.paramveerjamhal.food4kids.entities.Event;
 import com.example.paramveerjamhal.food4kids.entities.EventResponse;
+import com.example.paramveerjamhal.food4kids.entities.SpecialEvent;
+import com.example.paramveerjamhal.food4kids.entities.SpecialEvent_Response;
 import com.example.paramveerjamhal.food4kids.network.ApiService;
 import com.example.paramveerjamhal.food4kids.network.RetrofitBuilder;
 
@@ -41,16 +45,26 @@ public class SpecialFragment extends Fragment {
     ApiService service;
     TokenManager tokenManager;
     Call<EventResponse> call;
+    Call<SpecialEvent_Response> call1;
     @BindView(R.id.post_title)
     TextView title;
     TextView post_body;
     ArrayList<Event> eventsBeanList;
-    EventAdapter mEventAdapter;
+    SpecialEventAdapter specialEventAdapter;
+    ArrayList<SpecialEvent> specialEventsList;
+
+
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            // Refresh your fragment here
+        }
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Home");
+        getActivity().setTitle("Special Events");
 
     }
 
@@ -65,10 +79,22 @@ public class SpecialFragment extends Fragment {
         mMyAnswerRV = rootView.findViewById(R.id.rv_my_events);
         tokenManager = TokenManager.getInstance(getActivity().getSharedPreferences("pref", MODE_PRIVATE));
         service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
+        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        // toolbar.setVisibility(View.GONE);
+        AppBarLayout appBarLayout = (AppBarLayout) rootView.findViewById(R.id.appbar);
+        appBarLayout.setVisibility(View.GONE);
+
+
+
+        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        mMyAnswerRV.setLayoutManager(mLayoutManager);
 
         eventsBeanList = new ArrayList<>();
+        specialEventsList =new ArrayList<>();
 
 
+
+        callSpecialEventService();
         call = service.showevents();
         call.enqueue(new Callback<EventResponse>() {
             @Override
@@ -77,27 +103,36 @@ public class SpecialFragment extends Fragment {
 
                 if (response.isSuccessful()) {
 
-                    Log.w(TAG, "Repsonse of post fragment api ++++:api " + response.body().getData());
+                    Log.e(TAG, "Repsonse of special fragment api ++++:api " + response.body().getData());
                     if (response.body().getData().size() != 0) {
 
                         List<Event> eventBeanListdata = response.body().getData();
+                        eventsBeanList.clear();
+                        //eventsBeanList.addAll(eventBeanListdata);
 
-                        //   Toast.makeText(getActivity(),response.body().getData().get(0).getTitle(),Toast.LENGTH_LONG).show();
-                        for(int i=0;i<response.body().getData().size() ;i++){
-                            if(eventBeanListdata.get(i).getEventType()==1){
-                                eventsBeanList.addAll(eventBeanListdata);
+                        for(int i=0;i<eventBeanListdata.size();i++)
+                        {
+                            for(int j=0;j<specialEventsList.size();j++)
+                            {
+                                Log.e("event id in s_fragment" , String.valueOf(eventBeanListdata.get(i).getEventId()));
+
+                                if((eventBeanListdata.get(i).getEventId())==(specialEventsList.get(j).getEvent_id()))
+                                {
+                                    eventsBeanList.add(eventBeanListdata.get(i));
+                                    Log.e("special id " , String.valueOf(specialEventsList.get(j).getEvent_id()));
+                                    Log.e("size  " , String.valueOf(eventsBeanList.size()));
+                                }
                             }
                         }
 
+                        specialEventAdapter = new SpecialEventAdapter(getActivity(), eventsBeanList,specialEventsList);
+                        mMyAnswerRV.setAdapter(specialEventAdapter);
 
                     } else {
                         Toast.makeText(getActivity(), "No data fetched.", Toast.LENGTH_SHORT).show();
 
                     }
 
-                    // title.setText(response.body().getData().get(0).getTitle());
-                //    mEventAdapter = new EventAdapter(getActivity(), eventsBeanList);
-                 //   mMyAnswerRV.setAdapter(mEventAdapter);
 
                 } else {
                    /*  if(response.code()==401)
@@ -118,10 +153,36 @@ public class SpecialFragment extends Fragment {
 
         });
 
-        final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        mMyAnswerRV.setLayoutManager(mLayoutManager);
-
         return rootView;
+    }
+
+
+
+    private ArrayList<SpecialEvent> callSpecialEventService() {
+
+        call1 = service.showSpecialevents();
+        call1.enqueue(new Callback<SpecialEvent_Response>() {
+            @Override
+            public void onResponse(Call<SpecialEvent_Response> call, Response<SpecialEvent_Response> response) {
+                Log.e(TAG, "+++++++++++++++=onResponse from special event : " + response);
+                if (response.isSuccessful()) {
+
+                    Log.w(TAG, "response : " +response.body().getData());
+                    if(response.body().getData().size()!=0) {
+                        List<SpecialEvent> list = response.body().getData();
+                        specialEventsList.addAll(list);
+                    }
+                } else {
+                    Toast.makeText(getActivity(), "No data fetched", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SpecialEvent_Response> call, Throwable t) {
+                Log.w(TAG, "onFailure: " + t+ " personalised message : not working");
+            }
+        });
+        return specialEventsList;
     }
 
 
@@ -143,6 +204,5 @@ public class SpecialFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
     }
+
 }
-
-

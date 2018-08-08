@@ -10,6 +10,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -145,7 +146,7 @@ public class Advance3DDrawer1Activity extends AppCompatActivity
 
                         for(int i=0;i<response.body().getData().size();i++)
                         {
-                            if((tokenManager.getEmail()).equals(response.body().getData().get(i).getEmail()))
+                            if(tokenManager.getEmail().equals(response.body().getData().get(i).getEmail()))
                             {
 
                                 user_Type = response.body().getData().get(i).getUserType();
@@ -194,7 +195,7 @@ public class Advance3DDrawer1Activity extends AppCompatActivity
         // Handle navigation view item clicks here.
 
         int id = item.getItemId();
-        // NavUtils.navigateUpFromSameTask(this);
+         //NavUtils.navigateUpFromSameTask(this);
         //   startActivity(new Intent(Advance3DDrawer1Activity.this,Advance3DDrawer1Activity.class));
         displaySelectedScreen(id);
         return true;

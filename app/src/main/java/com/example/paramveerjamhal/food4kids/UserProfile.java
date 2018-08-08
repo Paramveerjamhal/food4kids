@@ -160,7 +160,7 @@ public class UserProfile extends AppCompatActivity {
                     userCity.setEnabled(false);
                     userMobile.setEnabled(false);
                     userPostalcode.setEnabled(false);
-                 Toast.makeText(UserProfile.this, "event updated successfully", Toast.LENGTH_LONG).show();
+                 Toast.makeText(UserProfile.this, "User information updated successfully", Toast.LENGTH_LONG).show();
                  m_Dialog.dismiss();
                 } else {
 

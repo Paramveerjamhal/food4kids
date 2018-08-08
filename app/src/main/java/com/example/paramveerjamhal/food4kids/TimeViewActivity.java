@@ -93,13 +93,14 @@ public class TimeViewActivity extends AppCompatActivity implements View.OnClickL
         ButterKnife.bind(this);
         menu.setVisibility(View.VISIBLE);
 
+
         tokenManager = TokenManager.getInstance(this.getSharedPreferences("pref", MODE_PRIVATE));
         service = RetrofitBuilder.createServiceWithAuth(ApiService.class, tokenManager);
         validator=new AwesomeValidation(ValidationStyle.TEXT_INPUT_LAYOUT);
         m_Dialog= new ProgressDialog(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Set Time");
+        this.setTitle("Set Time");
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setDisplayShowHomeEnabled(true);
@@ -229,6 +230,10 @@ public class TimeViewActivity extends AppCompatActivity implements View.OnClickL
                         Toast.makeText(TimeViewActivity.this, "No participation.", Toast.LENGTH_SHORT).show();
                     }
                 }
+                else
+                {
+                    m_Dialog.dismiss();
+                }
             }
 
             @Override
@@ -341,7 +346,7 @@ public class TimeViewActivity extends AppCompatActivity implements View.OnClickL
     }
 
     @SuppressLint("SetTextI18n")
-    public void showMessageDialog(final Activity activity, final String response, final String callingPlace) {
+    public static void showMessageDialog(final Activity activity, final String response, final String callingPlace) {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_message);

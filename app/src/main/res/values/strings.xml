@@ -46,7 +46,9 @@
     <string name="request_not">Something went wrong.Please try Again.</string>
     <string name="participation_success">Request Has been sent.Please Wait for Admin Approval.</string>
     <string name="participation_update">Availability Time Updated.</string>
+    <string name="participation_approved">Volunteer request approved.</string>
     <string name="participation_delete">Participation removed successfully.</string>
+    <string name="participation_volunteerremove">Volunteer removed from event.</string>
     <string name="ok">OK</string>
     <string name="request_approved">Request Approved</string>
     <string name="waiting_for_approval">Waiting for approval</string>

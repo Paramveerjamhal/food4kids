@@ -3,10 +3,9 @@ package com.example.paramveerjamhal.food4kids.entities;
 
 import java.io.Serializable;
 
-public class WeeklyEvent implements Serializable {
-    private int w_event_id;
+public class SpecialEvent implements Serializable {
+    private int s_event_id;
     private int event_id;
-    private String weekly_eventTask;
     private String date;
     private String start_time;
     private String end_time;
@@ -14,27 +13,23 @@ public class WeeklyEvent implements Serializable {
 
 
 
-    public WeeklyEvent(int w_event_id, int event_id, String weekly_eventTask, String date,
-            int noOfVol, String start_time,String end_time) {
-        this.w_event_id=w_event_id;
+    public SpecialEvent(int s_event_id, int event_id,  String date,
+                        int noOfVol, String start_time, String end_time) {
+        this.s_event_id=s_event_id;
         this.event_id=event_id;
-        this.weekly_eventTask=weekly_eventTask;
         this.date=date;
         this.start_time=start_time;
         this.end_time=end_time;
         this.noOfVol=noOfVol;
     }
 
-
-
-    public int getW_event_id() {
-        return w_event_id;
+    public int getS_event_id() {
+        return s_event_id;
     }
 
-    public void setW_event_id(int w_event_id) {
-        this.w_event_id = w_event_id;
+    public void setS_event_id(int s_event_id) {
+        this.s_event_id = s_event_id;
     }
-
 
     public int getEvent_id() {
         return event_id;
@@ -42,22 +37,6 @@ public class WeeklyEvent implements Serializable {
 
     public void setEvent_id(int event_id) {
         this.event_id = event_id;
-    }
-
-    public String getWeekly_eventTask() {
-        return weekly_eventTask;
-    }
-
-    public int getNoOfVol() {
-        return noOfVol;
-    }
-
-    public void setNoOfVol(int noOfVol) {
-        this.noOfVol = noOfVol;
-    }
-
-    public void setWeekly_eventTask(String weekly_eventTask) {
-        this.weekly_eventTask = weekly_eventTask;
     }
 
     public String getDate() {
@@ -84,6 +63,12 @@ public class WeeklyEvent implements Serializable {
         this.end_time = end_time;
     }
 
+    public int getNoOfVol() {
+        return noOfVol;
+    }
 
+    public void setNoOfVol(int noOfVol) {
+        this.noOfVol = noOfVol;
+    }
 }
 

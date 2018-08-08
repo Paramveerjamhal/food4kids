@@ -114,6 +114,8 @@ public class EventListActivity extends AppCompatActivity {
     EditText etnoOfVol;
     @BindView(R.id.til_volNo)
     TextInputLayout event_noOfVol;
+    @BindView(R.id.rl_task)
+    RelativeLayout relativeLayout;
 
     @BindView(R.id.save_button)
     Button save;
@@ -121,9 +123,16 @@ public class EventListActivity extends AppCompatActivity {
 
     //event id
     int intent_eventId,intent_event_Type,intent_weekly_id;
-    String intent_event_Name, intent_event_Desc, intent_event_Date, intent_event_Org,
-           intent_noOfVol,intent_event_Address,intent_event_Postal,intent_event_startTime,
-            intent_event_endTime,intent_event_task;
+    String intent_event_Name;
+    String intent_event_Desc;
+    String intent_event_Date;
+    String intent_event_Org;
+    int intent_noOfVol;
+    String intent_event_Address;
+    String intent_event_Postal;
+    String intent_event_startTime;
+    String intent_event_endTime;
+    String intent_event_task;
 
     ArrayAdapter<String> adapter,adapterTask;
 
@@ -159,6 +168,7 @@ public class EventListActivity extends AppCompatActivity {
         spinnerTaskArray.add("Packing");
         spinnerTaskArray.add("Sorting");
         spinnerTaskArray.add("Delivery");
+        this.setTitle("Events");
 
         //getting extras from intent
         intent_eventId = getIntent().getIntExtra("event_id", -1);
@@ -170,8 +180,10 @@ public class EventListActivity extends AppCompatActivity {
         intent_event_Postal=getIntent().getStringExtra("event_postal");
         intent_event_Desc = getIntent().getStringExtra("event_desc");
         intent_event_Org = getIntent().getStringExtra("event_organizer");
-        intent_noOfVol=getIntent().getStringExtra("event_noOfVol");
-        intent_event_task=getIntent().getStringExtra("event_task");
+        intent_noOfVol=getIntent().getIntExtra("event_noOfVol",-1);
+        if(eventType==0) {
+            intent_event_task = getIntent().getStringExtra("event_task");
+        }
         intent_event_startTime=getIntent().getStringExtra("event_task");
         intent_event_startTime=getIntent().getStringExtra("start_time");
         intent_event_endTime=getIntent().getStringExtra("end_time");
@@ -233,9 +245,16 @@ public class EventListActivity extends AppCompatActivity {
         etPostal.setText(intent_event_Postal);
         etDate.setText(intent_event_Date);
         etorg.setText(intent_event_Org);
-        etnoOfVol.setText(intent_noOfVol);
-        int i = adapterTask.getPosition(intent_event_task);
-        task_spinner.setSelection(i);
+        etnoOfVol.setText(String.valueOf(intent_noOfVol));
+        if(intent_event_Type==0) {
+            int i = adapterTask.getPosition(intent_event_task);
+            task_spinner.setSelection(i);
+            relativeLayout.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            relativeLayout.setVisibility(View.GONE);
+        }
         et_startTime.setText(intent_event_startTime);
         et_endTime.setText(intent_event_endTime);
 
@@ -250,6 +269,7 @@ public class EventListActivity extends AppCompatActivity {
         task_spinner.setEnabled(false);
         et_startTime.setEnabled(false);
         et_endTime.setEnabled(false);
+     //   datepicker.setEnabled(false);
     }
 
     @OnClick(R.id.fab_edit)
@@ -267,12 +287,13 @@ public class EventListActivity extends AppCompatActivity {
         etorg.setFocusable(true);
         etnoOfVol.setFocusableInTouchMode(true);
         etnoOfVol.setFocusable(true);
-        etDate.setFocusableInTouchMode(true);
-        etDate.setFocusable(true);
+      //  etDate.setFocusableInTouchMode(true);
+       // etDate.setFocusable(true);
         event_spinner.setEnabled(true);
         task_spinner.setEnabled(true);
         et_startTime.setEnabled(true);
         et_endTime.setEnabled(true);
+        datepicker.setEnabled(true);
 
         save.setVisibility(View.VISIBLE);
        menu.setVisibility(View.GONE);
@@ -389,11 +410,12 @@ public class EventListActivity extends AppCompatActivity {
                     etPostal.setFocusable(false);
                     etorg.setFocusable(false);
                     etnoOfVol.setFocusable(false);
-                    etDate.setFocusable(false);
+                   // etDate.setFocusable(false);
                     event_spinner.setEnabled(false);
                     task_spinner.setEnabled(false);
                     et_startTime.setEnabled(false);
                     et_endTime.setEnabled(false);
+                  //  datepicker.setEnabled(false);
 
                     Toast.makeText(EventListActivity.this, "event updated successfully", Toast.LENGTH_LONG).show();
                     // startActivity(intent);

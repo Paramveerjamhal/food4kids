@@ -22,15 +22,23 @@
         android:layout_centerVertical="true"
         android:orientation="vertical">
 
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:background="@mipmap/trans_logo"/>
+
         <TextView
             android:text="Login"
             style="@style/Base.TextAppearance.AppCompat.Headline"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="visible"/>
 
         <ImageButton
             android:id="@+id/btn_facebook"
+            android:visibility="gone"
             android:background="@drawable/facebook_selector"
             android:layout_gravity="center_horizontal"
             android:layout_width="46dp"

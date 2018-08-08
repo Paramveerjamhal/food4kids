@@ -403,6 +403,10 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
                         //  Toast.makeText(getActivity(), "No participation.", Toast.LENGTH_SHORT).show();
                     }
                 }
+                else
+                {
+                    m_Dialog.dismiss();
+                }
             }
 
             @Override
@@ -527,6 +531,7 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
         if (call != null) {
             call.cancel();
             call = null;
+            getActivity().finish();
         }
     }
     @Override
@@ -537,6 +542,7 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
     public void onDetach() {
         super.onDetach();
     }
+
 
 }
 

@@ -79,7 +79,7 @@ public class CreateEventFragment extends Fragment {
      @BindView(R.id.til_event_postal)
      TextInputLayout event_postal;
      @BindView(R.id.input_date)
-     TextView event_date;
+     EditText event_date;
      @BindView(R.id.til_event_org)
      TextInputLayout event_organizer;
      @BindView(R.id.til_volNo)

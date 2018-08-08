@@ -99,10 +99,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         // create a new view
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.listtems, parent, false);
 
-        tokenManager = TokenManager.getInstance(parent.getContext().getSharedPreferences("prefs", MODE_PRIVATE));
-        service= RetrofitBuilder.createServiceWithAuth(ApiService.class,tokenManager);
-        validator=new AwesomeValidation(ValidationStyle.TEXT_INPUT_LAYOUT);
-        m_Dialog = new ProgressDialog(parent.getContext());    // set the view's size, margins, paddings and layout parameters
+           // set the view's size, margins, paddings and layout parameters
 
         ViewHolder vh = new ViewHolder(v,new ViewHolder.IOnRecycleViewItemClick() {
 
@@ -130,8 +127,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                     intent.putExtra("weekly_id",weeklyEvents.get(position).getW_event_id());
                     intent.putExtra("event_task", weeklyEvents.get(position).getWeekly_eventTask());
                     intent.putExtra("start_time", weeklyEvents.get(position).getStart_time());
+                    intent.putExtra("event_noOfVol", weeklyEvents.get(position).getNoOfVol());
                     intent.putExtra("end_time", weeklyEvents.get(position).getEnd_time());
-                    intent.putExtra("event_noOfVol", weeklyEvents.get(position).getEvent_noOfVol());
+
 
                 }
                 mActivity.startActivity(intent);
@@ -170,6 +168,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     @Override
     public int getItemCount() {
         return mEventBeanList.size();
+    }
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
 } 

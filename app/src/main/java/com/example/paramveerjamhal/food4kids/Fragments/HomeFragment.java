@@ -91,6 +91,7 @@ public class HomeFragment extends Fragment {
         FragmentManager FManager = getChildFragmentManager();
         ViewPagerAdapter adapter = new ViewPagerAdapter(FManager);
 
+        viewPager.getAdapter().notifyDataSetChanged();
         viewPager.setAdapter(adapter);
 
 
@@ -135,8 +136,11 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
         viewPager.setAdapter(fragmentAdapter);
     }
+
+
 
 
 }

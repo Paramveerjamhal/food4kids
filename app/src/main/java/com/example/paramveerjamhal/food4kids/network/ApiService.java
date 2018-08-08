@@ -5,6 +5,7 @@ import com.example.paramveerjamhal.food4kids.entities.EventResponse;
 import com.example.paramveerjamhal.food4kids.entities.Part_WeeklyResponse;
 import com.example.paramveerjamhal.food4kids.entities.Participation_Response;
 import com.example.paramveerjamhal.food4kids.entities.PostResponse;
+import com.example.paramveerjamhal.food4kids.entities.SpecialEvent_Response;
 import com.example.paramveerjamhal.food4kids.entities.UserResponse;
 import com.example.paramveerjamhal.food4kids.entities.UserWithEventTaskResponse;
 import com.example.paramveerjamhal.food4kids.entities.WeeklyEvent;
@@ -74,12 +75,31 @@ public interface ApiService {
                                @Field("start_time") String start_Timer,
                                @Field("end_time") String end_time);
 
+    @POST("events")
+    @FormUrlEncoded
+    Call<AccessToken> events(  @Field("userId" ) int userId,
+                               @Field("eventType") int eventType,
+                               @Field("eventTitle") String eventTitle,
+                               @Field("eventDescription") String eventDescription,
+                               @Field("eventAddress") String eventAddress,
+                               @Field("postal_code") String postal_code,
+                               @Field("event_Date") String event_Date,
+                               @Field("event_Organizer") String event_Organizer,
+                               @Field("noOfVol") int noOfVol,
+                               @Field("date") String date,
+                               @Field("start_time") String start_Timer,
+                               @Field("end_time") String end_time);
+
+
+
     @GET("showevents")
     Call<EventResponse> showevents();
 
     @POST("delete_event")
     @FormUrlEncoded
     Call<AccessToken> delete_event(@Field("eventId") int eventId);
+
+
 
     @POST("update_event")
     @FormUrlEncoded
@@ -102,6 +122,9 @@ public interface ApiService {
 
     @GET("showWeeklyevents")
     Call<Weekly_EventResponse> showWeeklyevents();
+
+    @GET("showSpecialevents")
+    Call<SpecialEvent_Response> showSpecialevents();
 
     @GET("packing_calender")
     Call<Weekly_EventResponse> packing_calender();
@@ -153,8 +176,7 @@ public interface ApiService {
     @POST("ViewUserWithEventTask")
     @FormUrlEncoded
     Call<UserWithEventTaskResponse> ViewUserWithEventTask(
-                                                    @Field("date") String date,
-                                                    @Field("weekly_eventTask") String weekly_eventTask);
+                                                    @Field("date") String date);
 
 
 }

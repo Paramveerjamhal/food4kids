@@ -85,7 +85,7 @@ public class Admin_ScheduleFragment extends Fragment implements OnDateSelectedLi
 
     ArrayList<CalendarDay> dates=new ArrayList<>();
     private ArrayList<WeeklyEvent> weekly_event = new ArrayList<WeeklyEvent>();
-    ArrayList<String> part_eventList=new ArrayList<String>();
+    ArrayList<Part_WeeklyModel> part_eventList=new ArrayList<Part_WeeklyModel>();
 
     String startHour,endHour;
     ProgressDialog m_Dialog;
@@ -356,38 +356,50 @@ public class Admin_ScheduleFragment extends Fragment implements OnDateSelectedLi
                 if (response.isSuccessful()) {
                     if (response.body().getData().size() != 0) {
                         List<Part_WeeklyModel> participateList = response.body().getData();
-                        //part_eventList.addAll(participateList);
+                        part_eventList.addAll(participateList);
                         for (int i = 0; i < response.body().getData().size(); i++) {
                             System.out.println("response id "
                                     + response.body().getData().get(i).getEvent_id());
-                            if ((participateList.get(i).getWeekly_eventTask().toLowerCase()).equals(spinnerText)) {
-                                String date = response.body().getData().get(i).getDate();
-                                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                                Date date1 = null;
-                                try {
-                                    date1 = format.parse(date);
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
-                                System.out.println(date1);
-                                Calendar c = Calendar.getInstance();
-                                c.setTime(date1);
-                                CalendarDay day = CalendarDay.from(c);
-                                widget.invalidateDecorators();
-                                if (participateList.get(i).getAdmin_approveStatus() == 1) {
-                                    widget.addDecorator(new ChangingBackgroundDecorator(day, getResources().getColor(R.color.green_theme)));
-                                }
-                                else
-                                {
-                                    widget.addDecorator(new ChangingBackgroundDecorator(day, getResources().getColor(R.color.waiting)));
+
+                                if ((participateList.get(i).getWeekly_eventTask().toLowerCase()).equals(spinnerText)) {
+                                    // noOfVolList.add(participateList.get(i).getWeekly_eventTask());
+                                    ArrayList<Part_WeeklyModel> noOfVolList = new ArrayList<>(participateList);
+                                    System.out.println("shortsighted"+ noOfVolList);
+
+                                    String date = response.body().getData().get(i).getDate();
+                                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                                    Date date1 = null;
+                                    try {
+                                        date1 = format.parse(date);
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+                                    System.out.println(date1);
+                                    Calendar c = Calendar.getInstance();
+                                    c.setTime(date1);
+                                    CalendarDay day = CalendarDay.from(c);
+                                    widget.invalidateDecorators();
+                                   if (participateList.get(i).getAdmin_approveStatus() == 1) {
+                                       if ((participateList.get(i).getNoOfVol()) == (noOfVolList.size())) {
+                                           widget.addDecorator(new ChangingBackgroundDecorator(day, getResources().getColor(R.color.mehroon)));
+                                        //   widget.setEnabled(false);
+                                          // widget.setBackgroundColor(getResources().getColor(R.color.mehroon));
+                                       } else
+                                           widget.addDecorator(new ChangingBackgroundDecorator(day, getResources().getColor(R.color.green_theme)));
+                                    } else {
+                                        widget.addDecorator(new ChangingBackgroundDecorator(day, getResources().getColor(R.color.waiting)));
+                                    }
+
+                                    System.out.println("Selected " + Selected_StartDate + " " + Selected_EndDate);
+
                                 }
                             }
-                            System.out.println("Selected " + Selected_StartDate + " " + Selected_EndDate);
 
-                        }
-
+                        m_Dialog.dismiss();
+                    } else {
+                        m_Dialog.dismiss();
+                        //  Toast.makeText(getActivity(), "No participation.", Toast.LENGTH_SHORT).show();
                     }
-                    m_Dialog.dismiss();
                 }
                 else {
                     m_Dialog.dismiss();
@@ -416,6 +428,14 @@ public class Admin_ScheduleFragment extends Fragment implements OnDateSelectedLi
      //   widget.addDecorators(new AllDaysDisabledDecorator(), new EventDecorator(Color.RED, days),new ChangingBackgroundDecorator(date), oneDayDecorator);
       //  widget.addDecorators(new ChangingBackgroundDecorator(date));
 
+        Intent intent = new Intent(getActivity(), UserListActivity.class);
+
+
+
+
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+        String d2 = format1.format(date.getDate());
+      //  Toast.makeText(getActivity(), "d2 "+d2, Toast.LENGTH_SHORT).show();
 
         for(int i=0;i<weekly_event.size();i++) {
 
@@ -423,6 +443,7 @@ public class Admin_ScheduleFragment extends Fragment implements OnDateSelectedLi
             Date date1 = null;
             try {
                 date1 = format.parse(weekly_event.get(i).getDate());
+                intent.putExtra("task",weekly_event.get(i).getWeekly_eventTask());
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -430,15 +451,18 @@ public class Admin_ScheduleFragment extends Fragment implements OnDateSelectedLi
             Calendar c = Calendar.getInstance();
             c.setTime(date1);
             CalendarDay day = CalendarDay.from(c);
-                Intent intent = new Intent(getActivity(), UserListActivity.class);
-                if (date.equals(day)) {
-                    intent.putExtra("weeklyevent", weekly_event);
-                    intent.putExtra("weekly_date",weekly_event.get(i).getDate());
-                    intent.putExtra("task",weekly_event.get(i).getWeekly_eventTask());
-                    intent.putExtra("position", i);
-                }
-                startActivity(intent);
+
+               /*            if (date.equals(day)) {
+                // intent.putExtra("weeklyevent", weekly_event);
+                intent.putExtra("weekly_date",weekly_event.get(i).getDate());
+                intent.putExtra("task",weekly_event.get(i).getWeekly_eventTask());
+                //  intent.putExtra("position", i);
+                Toast.makeText(getContext(), "same date "+date+" ="+day, Toast.LENGTH_SHORT).show();
+            }
+*/
         }
+        intent.putExtra("date",d2);
+        startActivity(intent);
     }
 
     /************************************************ ALL THE DECORATORS ******************************************/
