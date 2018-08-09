@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Food4Kids.iml" filepath="$PROJECT_DIR$/Food4Kids.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Food4KidsAndroid.iml" filepath="$PROJECT_DIR$/Food4KidsAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/TimeViewLibrary/TimeViewLibrary.iml" filepath="$PROJECT_DIR$/TimeViewLibrary/TimeViewLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/materialCalenderLibrary/materialCalenderLibrary.iml" filepath="$PROJECT_DIR$/materialCalenderLibrary/materialCalenderLibrary.iml" />

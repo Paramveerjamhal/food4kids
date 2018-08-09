@@ -2,7 +2,7 @@ package com.example.paramveerjamhal.food4kids.entities;
 
 import java.io.Serializable;
 
-public class UserWithEventTAsk implements Serializable {
+public class UserWithEventTask implements Serializable {
     int id;
     String name;
     String email;
@@ -22,7 +22,7 @@ public class UserWithEventTAsk implements Serializable {
 
 
 
-    public UserWithEventTAsk(int id,int w_event_id, int event_id, String date,int participate_id,
+    public UserWithEventTask(int id,int w_event_id, int event_id, String date,int participate_id,
                              String user_startTime, String user_endTime, int admin_approveStatus,String name,
                              String email,String mobile,String address,String city,String postal_code) {
         this.id=id;
