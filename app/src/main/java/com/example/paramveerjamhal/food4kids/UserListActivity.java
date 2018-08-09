@@ -1,30 +1,18 @@
 package com.example.paramveerjamhal.food4kids;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.paramveerjamhal.food4kids.LoginActivity;
-import com.example.paramveerjamhal.food4kids.R;
-import com.example.paramveerjamhal.food4kids.TokenManager;
-import com.example.paramveerjamhal.food4kids.adapter.EventAdapter;
 import com.example.paramveerjamhal.food4kids.adapter.UserAdapter;
-import com.example.paramveerjamhal.food4kids.entities.Event;
-import com.example.paramveerjamhal.food4kids.entities.EventResponse;
 import com.example.paramveerjamhal.food4kids.entities.UserWithEventTAsk;
 import com.example.paramveerjamhal.food4kids.entities.UserWithEventTaskResponse;
 import com.example.paramveerjamhal.food4kids.entities.WeeklyEvent;
@@ -40,8 +28,6 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class UserListActivity extends AppCompatActivity {
 
@@ -104,7 +90,7 @@ public class UserListActivity extends AppCompatActivity {
                     Log.w(TAG, "Repsonse of User ListActivity fragment api ++++:api " + response.body().getData());
                     if (response.body().getData().size() != 0) {
                         List<UserWithEventTAsk> userWithEventTAskList=response.body().getData();
-                        userwithTaskList.addAll(userWithEventTAskList);
+                        userwithTaskList.addAll(userwithTaskList);
                         mUserAdapter = new UserAdapter(UserListActivity.this,userwithTaskList);
                         mMyUserRV.setAdapter(mUserAdapter) ;
                         mUserAdapter.notifyDataSetChanged();

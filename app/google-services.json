@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1016161470871",
+    "firebase_url": "https://food4kidsandroidapk.firebaseio.com",
+    "project_id": "food4kidsandroidapk",
+    "storage_bucket": "food4kidsandroidapk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1016161470871:android:81576217b053dea0",
+        "android_client_info": {
+          "package_name": "com.example.paramveerjamhal.food4kids"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1016161470871-c5cl52ke71k0g3afhifdlvgi00lmfsb8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.paramveerjamhal.food4kids",
+            "certificate_hash": "b941350f2883ddbdaf172022ee427c303f8c16f9"
+          }
+        },
+        {
+          "client_id": "1016161470871-gamnj15v8jamlpmfc7ns63p18rb3kvhm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCa7ewlWiWCtzgRsuOurAViOHz_D2wN5qk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1016161470871-gamnj15v8jamlpmfc7ns63p18rb3kvhm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

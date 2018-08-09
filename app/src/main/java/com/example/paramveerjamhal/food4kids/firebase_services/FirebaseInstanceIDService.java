@@ -1,30 +1,43 @@
 package com.example.paramveerjamhal.food4kids.firebase_services;
 
+import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Toast;
+
+
+import com.codewarriors4.tiffin.utils.DatabaseHelper;
+
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
+import java.util.HashMap;
 
-public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
+public class FirebaseInstanceIDService extends com.google.firebase.iid.FirebaseInstanceIdService {
+
+    private String refreshedToken;
+    DatabaseHelper mDatabaseHelper;
+
 
     @Override
     public void onTokenRefresh() {
-       String token= FirebaseInstanceId.getInstance().getToken();
-       registerToken(token);
+        // Get updated InstanceID token.
+        refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        Log.d("token", "Refreshed token: " + refreshedToken);
+/*        sessionUtli = SessionUtli.getSession(getSharedPreferences(Constants.SHAREDPREFERNCE, MODE_PRIVATE));
+        sessionUtli.setValue("fcmtoken",refreshedToken);
+        String token = sessionUtli.getValue("fcmtoken");*/
+        mDatabaseHelper = new DatabaseHelper(this);
+        sendRegistrationToServer(refreshedToken);
+
     }
 
-    private void registerToken(String token) {
-
-        OkHttpClient client=new OkHttpClient();
-        RequestBody body=new FormBody.Builder()
-                .add("Token",token)
-                .build();
+    private void sendRegistrationToServer(String token) {
+        if(!mDatabaseHelper.checkFCMExists(token)){
+            boolean insertData = mDatabaseHelper.addData(token);
+        }
 
 
-        Request.Builder request=new Request.Builder()
-                .url("http://192.168.0.13/food4kids/web/public/api/login");
+        //new MyAsynTask().execute("");
     }
+
 }
