@@ -5,8 +5,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 <android.support.v7.widget.Toolbar
+    android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="?actionBarSize"/>
+    android:layout_height="?android:actionBarSize"/>
 
 
     <android.support.design.widget.TabLayout
@@ -17,7 +18,7 @@
         android:background="@color/green_theme"
         app:tabIndicatorColor="@color/white"
         android:elevation="6dp"
-        android:minHeight="?attr/actionBarSize"
+        android:minHeight="?android:attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <android.support.v4.view.ViewPager
         android:id="@+id/pager1"

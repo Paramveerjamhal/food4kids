@@ -39,4 +39,7 @@
         <include layout="@layout/content_notification"/>
     </android.support.design.widget.NavigationView>
 
+
+
+
 </com.infideap.drawerbehavior.Advance3DDrawerLayout>

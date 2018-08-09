@@ -54,17 +54,13 @@ public class SpecialFragment extends Fragment {
     ArrayList<SpecialEvent> specialEventsList;
 
 
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            // Refresh your fragment here
-        }
-    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Special Events");
+       // getActivity().setTitle("Special Events");
+        specialEventAdapter = new SpecialEventAdapter(getActivity(), eventsBeanList,specialEventsList);
+        mMyAnswerRV.setAdapter(specialEventAdapter);
 
     }
 
@@ -125,8 +121,9 @@ public class SpecialFragment extends Fragment {
                             }
                         }
 
-                        specialEventAdapter = new SpecialEventAdapter(getActivity(), eventsBeanList,specialEventsList);
-                        mMyAnswerRV.setAdapter(specialEventAdapter);
+                       /* specialEventAdapter = new SpecialEventAdapter(getActivity(), eventsBeanList,specialEventsList);
+                        mMyAnswerRV.setAdapter(specialEventAdapter);*/
+                       specialEventAdapter.notifyDataSetChanged();
 
                     } else {
                         Toast.makeText(getActivity(), "No data fetched.", Toast.LENGTH_SHORT).show();

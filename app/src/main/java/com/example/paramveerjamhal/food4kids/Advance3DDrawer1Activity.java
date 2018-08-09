@@ -195,7 +195,7 @@ public class Advance3DDrawer1Activity extends AppCompatActivity
         // Handle navigation view item clicks here.
 
         int id = item.getItemId();
-         //NavUtils.navigateUpFromSameTask(this);
+        //NavUtils.navigateUpFromSameTask(this);
         //   startActivity(new Intent(Advance3DDrawer1Activity.this,Advance3DDrawer1Activity.class));
         displaySelectedScreen(id);
         return true;

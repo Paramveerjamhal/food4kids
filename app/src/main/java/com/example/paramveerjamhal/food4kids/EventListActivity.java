@@ -187,7 +187,7 @@ public class EventListActivity extends AppCompatActivity {
         intent_event_startTime=getIntent().getStringExtra("event_task");
         intent_event_startTime=getIntent().getStringExtra("start_time");
         intent_event_endTime=getIntent().getStringExtra("end_time");
-        menu.setVisibility(View.VISIBLE);
+
         event_create.setVisibility(View.GONE);
 
         //adapter of event type
@@ -235,6 +235,14 @@ public class EventListActivity extends AppCompatActivity {
             }
         });
         setData();
+        if(Advance3DDrawer1Activity.userId_TAG==1)
+        {
+            menu.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            menu.setVisibility(View.GONE);
+        }
     }
 
     private void setData() {

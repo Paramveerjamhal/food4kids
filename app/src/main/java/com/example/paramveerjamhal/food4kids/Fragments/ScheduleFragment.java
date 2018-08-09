@@ -104,6 +104,7 @@ public class ScheduleFragment extends Fragment implements OnDateSelectedListener
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Set Task");
+        widget.addDecorator(new AllDaysDisabledDecorator());
 
     }
 

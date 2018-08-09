@@ -58,5 +58,10 @@
     <string name="organizer">Organizer</string>
     <string name="user_name">User Name:</string>
     <string name="status">Status</string>
+    <string name="schedule">Schedule</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="about_us">About Us</string>
+    <string name="special_event">Special Event</string>
+    <string name="weekly">Weekly</string>
 
 </resources>

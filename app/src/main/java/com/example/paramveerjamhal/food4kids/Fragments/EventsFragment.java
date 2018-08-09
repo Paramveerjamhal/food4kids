@@ -56,8 +56,9 @@ public class EventsFragment  extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Home");
-
+       // getActivity().getParent().setTitle("Weekly Events");
+        mEventAdapter = new EventAdapter(getActivity(), eventsBeanList,weekly_eventlist);
+        mMyAnswerRV.setAdapter(mEventAdapter);
            }
 
 
@@ -112,8 +113,9 @@ public class EventsFragment  extends Fragment {
                             }
                         }
 
-                        mEventAdapter = new EventAdapter(getActivity(), eventsBeanList,weekly_eventlist);
-                        mMyAnswerRV.setAdapter(mEventAdapter);
+                        //mEventAdapter = new EventAdapter(getActivity(), eventsBeanList,weekly_eventlist);
+                        //mMyAnswerRV.setAdapter(mEventAdapter);
+                        mEventAdapter.notifyDataSetChanged();
 
                     } else {
                         Toast.makeText(getActivity(), "No data fetched.", Toast.LENGTH_SHORT).show();
